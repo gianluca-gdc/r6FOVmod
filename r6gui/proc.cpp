@@ -1,4 +1,4 @@
-/* #include <iostream>
+#include <iostream>
 #include<vector>
 #include<Windows.h>
 #include "proc.h"
@@ -29,10 +29,12 @@ DWORD GetProcId(const wchar_t* procName)
 
 uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* modName)
 {
-	uintptr_t modBaseAddr = 0;
+	
+	uintptr_t  modBaseAddr= 0;
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, procId);
 	if (hSnap != INVALID_HANDLE_VALUE)
 	{
+
 		MODULEENTRY32 modEntry;
 		modEntry.dwSize = sizeof(modEntry);
 		if (Module32First(hSnap, &modEntry))
@@ -41,6 +43,7 @@ uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* modName)
 			{
 				if (!_wcsicmp(modEntry.szModule, modName))
 				{
+					
 					modBaseAddr = (uintptr_t)modEntry.modBaseAddr;
 					break;
 				}
@@ -65,4 +68,3 @@ uintptr_t FindDMAAddy(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int> off
 }
 
 
-*/

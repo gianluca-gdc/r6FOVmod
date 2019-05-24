@@ -1,4 +1,9 @@
 #pragma once
+#include <iostream>
+#include <string>
+#include "Yeet.h"
+#include "utils.h"
+
 
 namespace r6gui {
 
@@ -15,6 +20,10 @@ namespace r6gui {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
+
+		delegate void setLabel4Text(String^ textFov);
+		setLabel4Text^ myDelegate;
+
 		MyForm(void)
 		{
 			InitializeComponent();
@@ -73,10 +82,10 @@ namespace r6gui {
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(0, 9);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(198, 34);
+			this->label1->Size = System::Drawing::Size(227, 34);
 			this->label1->TabIndex = 0;
-			this->label1->Text = L"R6 Shot Modifier";
-			this->label1->Click += gcnew System::EventHandler(this, &MyForm::Label1_Click);
+			this->label1->Text = L"R6 FOV Mdfr by GDC";
+			
 			// 
 			// label2
 			// 
@@ -87,9 +96,9 @@ namespace r6gui {
 			this->label2->ForeColor = System::Drawing::Color::WhiteSmoke;
 			this->label2->Location = System::Drawing::Point(340, 130);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(155, 30);
+			this->label2->Size = System::Drawing::Size(150, 30);
 			this->label2->TabIndex = 1;
-			this->label2->Text = L"Shot Modifier";
+			this->label2->Text = L"FOV Modifier";
 			// 
 			// textBox1
 			// 
@@ -97,29 +106,31 @@ namespace r6gui {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(261, 20);
 			this->textBox1->TabIndex = 2;
-			this->textBox1->Text = L"Input # of shots you would like to add here...";
+			this->textBox1->Text = L"Input Desired FOV here...";
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->label3->ForeColor = System::Drawing::SystemColors::Info;
-			this->label3->Location = System::Drawing::Point(230, 238);
+			this->label3->Location = System::Drawing::Point(330, 238);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(204, 13);
+			this->label3->Size = System::Drawing::Size(80, 13);
 			this->label3->TabIndex = 3;
-			this->label3->Text = L"Current Weapons Bullets Per Shot:";
+			this->label3->Text = L"Current FOV:";
+			
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
 			this->label4->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->label4->ForeColor = System::Drawing::SystemColors::GradientInactiveCaption;
-			this->label4->Location = System::Drawing::Point(440, 238);
+			this->label4->Location = System::Drawing::Point(407, 238);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(189, 13);
+			this->label4->Size = System::Drawing::Size(14, 13);
 			this->label4->TabIndex = 4;
-			this->label4->Text = L"Please input # of shots above...";
+			this->label4->Text = L"0";
+			
 			// 
 			// button1
 			// 
@@ -150,16 +161,29 @@ namespace r6gui {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MyForm";
-			this->Text = L"R6ShotModifier";
+			this->Text = L"R6SFOVModifier";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
+			myDelegate = gcnew setLabel4Text(this, &MyForm::setLabel4TextMethod);
 		}
 #pragma endregion
-	private: System::Void Label1_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
+	
 	private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		
+		int userInputContainer = 0;
+		System::String^ userInput = textBox1->Text;
+		if (ifIntEntered(userInput)) {
+			userInputContainer=stringToInt(userInput);
+			writeFovValue(userInputContainer);
+
+		}
+
 	}
+	public: 
+
+		void setLabel4TextMethod(String^ textFov) {
+			this->label4->Text = textFov;
+		}
+
 };
 }

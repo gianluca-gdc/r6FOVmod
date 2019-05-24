@@ -1,0 +1,4 @@
+﻿  Yeet.cpp
+C:\Users\acutu\source\repos\r6gui\r6gui\Yeet.cpp(28): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+  MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  r6gui.vcxproj -> C:\Users\acutu\source\repos\r6gui\x64\Debug\r6gui.exe
